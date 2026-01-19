@@ -338,11 +338,11 @@ describe('computeMinimalFixes', () => {
   });
 
   describe('handles React RSC packages', () => {
-    it('should select 19.0.2 for react-server-dom-webpack@19.0.0', () => {
+    it('should select 19.0.3 for react-server-dom-webpack@19.0.0', () => {
       // React RSC 19.0.x patch versions for DoS and Source Code Exposure:
       // - CVE-2025-66478: 19.0.1
-      // - CVE-2025-55184: 19.0.2
-      // - CVE-2025-55183: 19.0.2
+      // - CVE-2025-55184: 19.0.3
+      // - CVE-2025-55183: 19.0.3
 
       const analysisResults = [{
         path: '/test/package.json',
@@ -352,8 +352,8 @@ describe('computeMinimalFixes', () => {
           current: '19.0.0',
           cves: [
             { id: 'CVE-2025-66478', severity: 'critical', patchedVersion: '19.0.1' },
-            { id: 'CVE-2025-55184', severity: 'high', patchedVersion: '19.0.2' },
-            { id: 'CVE-2025-55183', severity: 'medium', patchedVersion: '19.0.2' },
+            { id: 'CVE-2025-55184', severity: 'high', patchedVersion: '19.0.3' },
+            { id: 'CVE-2025-55183', severity: 'medium', patchedVersion: '19.0.3' },
           ],
           inDeps: true,
           inDevDeps: false,
@@ -361,14 +361,14 @@ describe('computeMinimalFixes', () => {
       }];
 
       const fixes = computeMinimalFixes(analysisResults);
-      assert.strictEqual(fixes[0].fixes[0].patched, '19.0.2');
+      assert.strictEqual(fixes[0].fixes[0].patched, '19.0.3');
     });
 
-    it('should select 19.1.3 for react-server-dom-webpack@19.1.0', () => {
+    it('should select 19.1.4 for react-server-dom-webpack@19.1.0', () => {
       // React RSC 19.1.x patch versions:
       // - CVE-2025-66478: 19.1.2
-      // - CVE-2025-55184: 19.1.3
-      // - CVE-2025-55183: 19.1.3
+      // - CVE-2025-55184: 19.1.4
+      // - CVE-2025-55183: 19.1.4
 
       const analysisResults = [{
         path: '/test/package.json',
@@ -378,8 +378,8 @@ describe('computeMinimalFixes', () => {
           current: '19.1.0',
           cves: [
             { id: 'CVE-2025-66478', severity: 'critical', patchedVersion: '19.1.2' },
-            { id: 'CVE-2025-55184', severity: 'high', patchedVersion: '19.1.3' },
-            { id: 'CVE-2025-55183', severity: 'medium', patchedVersion: '19.1.3' },
+            { id: 'CVE-2025-55184', severity: 'high', patchedVersion: '19.1.4' },
+            { id: 'CVE-2025-55183', severity: 'medium', patchedVersion: '19.1.4' },
           ],
           inDeps: true,
           inDevDeps: false,
@@ -387,14 +387,14 @@ describe('computeMinimalFixes', () => {
       }];
 
       const fixes = computeMinimalFixes(analysisResults);
-      assert.strictEqual(fixes[0].fixes[0].patched, '19.1.3');
+      assert.strictEqual(fixes[0].fixes[0].patched, '19.1.4');
     });
 
-    it('should select 19.2.2 for react-server-dom-webpack@19.2.0', () => {
+    it('should select 19.2.3 for react-server-dom-webpack@19.2.0', () => {
       // React RSC 19.2.x patch versions:
       // - CVE-2025-66478: 19.2.1
-      // - CVE-2025-55184: 19.2.2
-      // - CVE-2025-55183: 19.2.2
+      // - CVE-2025-55184: 19.2.3
+      // - CVE-2025-55183: 19.2.3
 
       const analysisResults = [{
         path: '/test/package.json',
@@ -404,8 +404,8 @@ describe('computeMinimalFixes', () => {
           current: '19.2.0',
           cves: [
             { id: 'CVE-2025-66478', severity: 'critical', patchedVersion: '19.2.1' },
-            { id: 'CVE-2025-55184', severity: 'high', patchedVersion: '19.2.2' },
-            { id: 'CVE-2025-55183', severity: 'medium', patchedVersion: '19.2.2' },
+            { id: 'CVE-2025-55184', severity: 'high', patchedVersion: '19.2.3' },
+            { id: 'CVE-2025-55183', severity: 'medium', patchedVersion: '19.2.3' },
           ],
           inDeps: true,
           inDevDeps: false,
@@ -413,7 +413,7 @@ describe('computeMinimalFixes', () => {
       }];
 
       const fixes = computeMinimalFixes(analysisResults);
-      assert.strictEqual(fixes[0].fixes[0].patched, '19.2.2');
+      assert.strictEqual(fixes[0].fixes[0].patched, '19.2.3');
     });
   });
 
@@ -440,8 +440,9 @@ describe('computeMinimalFixes', () => {
             current: '19.1.0',
             cves: [
               { id: 'CVE-2025-66478', severity: 'critical', patchedVersion: '19.1.2' },
-              { id: 'CVE-2025-55184', severity: 'high', patchedVersion: '19.1.3' },
-              { id: 'CVE-2025-55183', severity: 'medium', patchedVersion: '19.1.3' },
+              { id: 'CVE-2025-55184', severity: 'high', patchedVersion: '19.1.4' },
+              { id: 'CVE-2025-55183', severity: 'medium', patchedVersion: '19.1.4' },
+              { id: 'CVE-2025-67779', severity: 'high', patchedVersion: '19.1.4' },
             ],
             inDeps: true,
             inDevDeps: false,
@@ -458,7 +459,7 @@ describe('computeMinimalFixes', () => {
       const rscFix = fixes[0].fixes.find(f => f.package === 'react-server-dom-webpack');
 
       assert.strictEqual(nextFix.patched, '15.3.8');
-      assert.strictEqual(rscFix.patched, '19.1.3');
+      assert.strictEqual(rscFix.patched, '19.1.4');
     });
   });
 
